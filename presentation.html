@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise AI — Presentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+        }
+
+        .slide {
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 48px 72px 40px;
+            page-break-after: always;
+            position: relative;
+            border-bottom: 2px solid #21262d;
+        }
+
+        /* Accent stripe top */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #58a6ff, #3fb950);
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #58a6ff, #3fb950);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 1.9em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 1.15em;
+            color: #58a6ff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        p, li {
+            font-size: 1.05em;
+            line-height: 1.65;
+            color: #b0bac6;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #8b949e;
+            margin-bottom: 36px;
+        }
+
+        /* ---- info cards (slide 1) ---- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 40px;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+        .info-item {
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border-left: 3px solid #58a6ff;
+        }
+        .info-item strong {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #58a6ff;
+            margin-bottom: 3px;
+        }
+        .info-item span {
+            font-size: 1.05em;
+            color: #c9d1d9;
+        }
+
+        /* ---- two columns ---- */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex: 1;
+        }
+        .box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #21262d;
+            border-radius: 12px;
+            padding: 20px 22px;
+        }
+        .box.highlight {
+            border-left: 3px solid #3fb950;
+        }
+
+        ul {
+            list-style: none;
+        }
+        ul li {
+            padding: 4px 0 4px 22px;
+            position: relative;
+        }
+        ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #58a6ff;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        /* ---- TA feedback ---- */
+        .feedback {
+            margin-top: 18px;
+            padding: 14px 18px;
+            background: rgba(63,185,80,0.06);
+            border: 1px solid rgba(63,185,80,0.2);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .feedback strong {
+            color: #3fb950;
+            font-size: 0.95em;
+        }
+        .feedback p {
+            margin-top: 6px;
+            font-size: 0.95em;
+            color: #a0aab4;
+        }
+
+        /* ---- demo slide ---- */
+        .demo-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .demo-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed #30363d;
+            border-radius: 16px;
+            padding: 40px 50px;
+            text-align: center;
+        }
+        .demo-box .icon { font-size: 3em; margin-bottom: 12px; }
+        .demo-box p { color: #8b949e; }
+
+        /* ---- links ---- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+            align-content: center;
+        }
+        .link-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #21262d;
+            border-radius: 14px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+        .link-card h3 { color: #ffffff; margin-bottom: 10px; }
+        .link-card a {
+            color: #58a6ff;
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 0.95em;
+        }
+        .link-card a:hover { text-decoration: underline; }
+        .qr {
+            width: 140px; height: 140px;
+            margin: 14px auto 0;
+            background: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* slide counter */
+        .counter {
+            position: absolute;
+            bottom: 16px;
+            right: 28px;
+            font-size: 0.8em;
+            color: #484f58;
+        }
+
+        @media print {
+            .slide { min-height: 100vh; page-break-after: always; }
+            body { background: #fff; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== SLIDE 1: Title ========== -->
+<div class="slide">
+    <h1>💰 SpendWise AI</h1>
+    <p class="subtitle">AI-powered expense tracker — type your spending in natural language, let AI handle the rest.</p>
+    <div class="info-grid">
+        <div class="info-item"><strong>Author</strong><span>Александр</span></div>
+        <div class="info-item"><strong>Email</strong><span>a.sheinin@innopolis.university</span></div>
+        <div class="info-item"><strong>Group</strong><span>DSAI-03</span></div>
+        <div class="info-item"><strong>Course</strong><span>Software Engineering Toolkit — Lab 9</span></div>
+    </div>
+    <span class="counter">1 / 5</span>
+</div>
+
+<!-- ========== SLIDE 2: Context ========== -->
+<div class="slide">
+    <h2>Context</h2>
+    <div class="two-col">
+        <div class="box">
+            <h3>End User</h3>
+            <ul>
+                <li>Students and young professionals</li>
+                <li>People who want to track spending but hate filling in forms</li>
+                <li>Russian- and English-speaking users</li>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Problem</h3>
+            <p>Traditional expense trackers require manual data entry — picking categories, selecting dates, typing amounts. This friction causes users to abandon tracking within days.</p>
+        </div>
+    </div>
+    <div class="box highlight" style="margin-top: 18px;">
+        <h3>Product Idea</h3>
+        <p style="color: #e6edf3; font-size: 1.15em;">Type how much you spent in a sentence — AI parses it into structured data and saves it automatically.</p>
+    </div>
+    <span class="counter">2 / 5</span>
+</div>
+
+<!-- ========== SLIDE 3: Implementation ========== -->
+<div class="slide">
+    <h2>Implementation</h2>
+    <div class="two-col">
+        <div class="box">
+            <h3>Version 1 — Core Feature</h3>
+            <ul>
+                <li>FastAPI backend + PostgreSQL database</li>
+                <li>React frontend with Chart.js</li>
+                <li>AI natural language parsing (Qwen 2.5)</li>
+                <li>Manual expense entry form</li>
+                <li>Transaction history with delete</li>
+                <li>Spending by category chart</li>
+                <li>Docker Compose (4 services)</li>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Version 2 — Templates &amp; Polish</h3>
+            <ul>
+                <li>Quick-entry templates — one-click logging</li>
+                <li>Auto-generated default templates</li>
+                <li>Vendor name autocorrect</li>
+                <li>Groq API cloud fallback (no GPU)</li>
+                <li>Error handling &amp; UI polish</li>
+            </ul>
+        </div>
+    </div>
+    <div class="feedback">
+        <strong>✅ TA Feedback Addressed</strong>
+        <p>
+            • Fixed project plan to clearly separate V1 and V2 &nbsp;•&nbsp;
+            Fixed transaction sorting — newest on top &nbsp;•&nbsp;
+            Page auto-refresh after saving &nbsp;•&nbsp;
+            Explored receipt photo upload &amp; analytics as future features
+        </p>
+    </div>
+    <span class="counter">3 / 5</span>
+</div>
+
+<!-- ========== SLIDE 4: Demo ========== -->
+<div class="slide">
+    <div class="demo-center">
+        <h2 style="margin-bottom: 10px;">Demo</h2>
+        <p class="subtitle" style="margin-bottom: 28px;">Pre-recorded video demonstration of Version 2</p>
+        <div class="demo-box">
+            <div class="icon">📹</div>
+            <p style="font-size: 1.15em; color: #c9d1d9; margin-bottom: 8px;">Insert your video here</p>
+            <p style="font-size: 0.9em; color: #6e7681;">Max 2 minutes · voice-over required<br>Show: AI parsing → Templates → History → Category chart</p>
+        </div>
+    </div>
+    <span class="counter">4 / 5</span>
+</div>
+
+<!-- ========== SLIDE 5: Links ========== -->
+<div class="slide">
+    <h2>Links</h2>
+    <div class="links-grid">
+        <div class="link-card">
+            <h3>📂 GitHub Repository</h3>
+            <a href="https://github.com/TeraloToxin/se-toolkit-hackathon" target="_blank">github.com/TeraloToxin/se-toolkit-hackathon</a>
+            <div class="qr">QR<br>Code</div>
+        </div>
+        <div class="link-card">
+            <h3>🚀 Deployed Product</h3>
+            <a href="#" target="_blank">http://&lt;VM_IP&gt;:5173</a>
+            <div class="qr">QR<br>Code</div>
+        </div>
+    </div>
+    <span class="counter">5 / 5</span>
+</div>
+
+</body>
+</html>
