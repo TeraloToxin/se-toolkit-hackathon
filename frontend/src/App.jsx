@@ -199,11 +199,9 @@ function App() {
     if (!text || !text.trim()) return null;
     const hasAmount = /\d+[.,]?\d*/.test(text);
     const hasVendor = /\p{L}{2,}/u.test(text);
-    const hasCategory = /\b(еда|фуд|food|такси|taxi|метро|metro|продукт|grocer|обед|lunch|ужин|dinner|завтрак|breakfast|кафе|cafe|ресторан|restaurant|магазин|shop|одежда|cloth|косметик|cosmetic|аренд|rent|развлеч|entertain|кино|cinema|здоровь|health|лекарств|medic|коммун|utilit|сервис|service|интернет|internet|электрич|electric|подписк|subscription|билет|ticket|транспорт|transport|бензин|gas|fuel|автомобиль|car|ремонт|repair)/i.test(text);
 
     if (!hasAmount) return t('valMissingAmount');
     if (!hasVendor) return t('valMissingVendor');
-    if (!hasCategory) return t('valMissingCategory');
     return null;
   };
 
