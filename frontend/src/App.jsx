@@ -39,6 +39,9 @@ const TRANSLATIONS = {
     saveError: 'Ошибка сохранения',
     tplError: 'Ошибка создания шаблона',
     processError: 'Ошибка обработки',
+    valMissingAmount: '⚠️ Укажите сумму расхода (число, например 500 или 500₽)',
+    valMissingVendor: '⚠️ Укажите продавца/магазин (например: Пятёрочка, Додо, Такси)',
+    valMissingCategory: '⚠️ Укажите категорию расхода (еда, такси, метро, продукты и т.д.)',
     aiNotFound: '⚠️ ИИ не нашёл расход. Попробуйте написать конкретнее (укажите сумму и что купили).',
     thDate: 'Дата',
     thCategory: 'Категория',
@@ -79,6 +82,9 @@ const TRANSLATIONS = {
     saveError: 'Save error',
     tplError: 'Template creation error',
     processError: 'Processing error',
+    valMissingAmount: '⚠️ Specify the expense amount (a number, e.g. 500 or $12)',
+    valMissingVendor: '⚠️ Specify the vendor/store (e.g. Pyaterochka, Dodo, Taxi)',
+    valMissingCategory: '⚠️ Specify the expense category (food, taxi, metro, groceries, etc.)',
     aiNotFound: '⚠️ AI couldn\'t find an expense. Try to be more specific (include amount and what you bought).',
     thDate: 'Date',
     thCategory: 'Category',
@@ -189,9 +195,28 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
+  const validateInput = (text) => {
+    if (!text || !text.trim()) return null;
+    const hasAmount = /\d+[.,]?\d*/.test(text);
+    const hasVendor = /\p{L}{2,}/u.test(text);
+    const hasCategory = /\b(еда|фуд|food|такси|taxi|метро|metro|продукт|grocer|обед|lunch|ужин|dinner|завтрак|breakfast|кафе|cafe|ресторан|restaurant|магазин|shop|одежда|cloth|косметик|cosmetic|аренд|rent|развлеч|entertain|кино|cinema|здоровь|health|лекарств|medic|коммун|utilit|сервис|service|интернет|internet|электрич|electric|подписк|subscription|билет|ticket|транспорт|transport|бензин|gas|fuel|автомобиль|car|ремонт|repair)/i.test(text);
+
+    if (!hasAmount) return t('valMissingAmount');
+    if (!hasVendor) return t('valMissingVendor');
+    if (!hasCategory) return t('valMissingCategory');
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+
+    const validationError = validateInput(input);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setLoading(true);
     setError('');
     setWarning('');
